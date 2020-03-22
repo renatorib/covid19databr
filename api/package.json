@@ -1,0 +1,33 @@
+{
+  "name": "@covid19br/api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "apollo-server": "^2.11.0",
+    "apollo-server-koa": "^2.11.0",
+    "chalk": "^3.0.0",
+    "graphql": "^14.6.0",
+    "knex": "^0.20.12",
+    "koa": "^2.11.0",
+    "koa-router": "^8.0.8",
+    "node-fetch": "^2.6.0",
+    "nodemon": "^2.0.2",
+    "ora": "^4.0.3",
+    "pg": "^7.18.2",
+    "ramda": "^0.27.0"
+  },
+  "scripts": {
+    "dev:prepare": "docker-compose up -d",
+    "dev:server": "DOTENV_CONFIG_PATH=.env.localhost nodemon -r dotenv/config src/index.js",
+    "dev": "yarn dev:prepare && yarn dev:server",
+    "migration": "node ./scripts/migration/generate.js",
+    "migrate:up": "knex migrate:up",
+    "migrate:down": "knex migrate:down",
+    "migrate:rollback": "knex migrate:rollback",
+    "migrate:list": "knex migrate:list"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0"
+  }
+}

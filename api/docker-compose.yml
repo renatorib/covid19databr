@@ -1,0 +1,28 @@
+# Docker Compose settings for launching PostgreSQL and Redis databases
+# You can override these settings in docker-compose.override.yml
+# https://docs.docker.com/compose/compose-file/
+
+version: "3.1"
+
+volumes:
+  db:
+
+services:
+  db:
+    image: mdillon/postgis:11
+    restart: always
+    volumes:
+      - db:/var/lib/postgresql/data2
+      # - ./postgres-initdb.sh:/docker-entrypoint-initdb.d/initdb.sh
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: covid19br
+      POSTGRES_USER: covid19br
+      POSTGRES_DB: covid19br
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
