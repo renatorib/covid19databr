@@ -33,7 +33,7 @@ const resolvers = {
   Query: {
     locations: async (_, args) => {
       const data = await db("locations")
-        .select(["id", "name", "type", "geog"])
+        .select(["id", "name", "type", db.raw(`st_astext(geog) as geog`)])
         .where("name", "ilike", `%${args.search}%`);
 
       return data;
@@ -65,7 +65,7 @@ const resolvers = {
     location: async parent => {
       console.log(parent.location_id);
       const data = await db("locations")
-        .first(["id", "name", "type", "geog"])
+        .first(["id", "name", "type", db.raw(`st_astext(geog) as geog`)])
         .where("id", parent.location_id);
       console.log(data);
 
@@ -75,8 +75,10 @@ const resolvers = {
 };
 
 const server = new ApolloServer({
-  typeDefs,
-  resolvers
+  modules: [
+    require("./schema/cases/index.js"),
+    require("./schema/locations/index.js")
+  ]
 });
 
 const app = new Koa();
