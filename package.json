@@ -1,12 +1,31 @@
 {
-  "name": "covid19brasil",
+  "name": "covid19databr",
   "version": "1.0.0",
   "main": "index.js",
+  "private": true,
   "author": "Renato Ribeiro <renatoribroman@gmail.com>",
   "license": "MIT",
-  "dependencies": {
-    "knex": "^0.20.12",
-    "next": "^9.3.1",
-    "pg": "^7.18.2"
+  "workspaces": [
+    "api"
+  ],
+  "husky": {
+    "hooks": {
+      "pre-push": "yarn workspaces run lint",
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "api/**/*.js": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-plugin-import": "^2.20.1",
+    "husky": "^2.7.0",
+    "lint-staged": "^10.0.8",
+    "prettier": "^2.0.2"
   }
 }

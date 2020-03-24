@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports.up = async db => {
+module.exports.up = async (db) => {
   await db.raw(`
     CREATE TABLE cases
     (
@@ -20,7 +20,7 @@ module.exports.up = async db => {
   `);
 };
 
-module.exports.down = async db => {
+module.exports.down = async (db) => {
   await db.raw(`
     DROP TABLE cases
   `);

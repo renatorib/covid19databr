@@ -1,5 +1,5 @@
 {
-  "name": "@covid19br/api",
+  "name": "@covid19databr/api",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -22,10 +22,12 @@
     "dev:server": "DOTENV_CONFIG_PATH=.env.localhost nodemon -r dotenv/config src/index.js",
     "dev": "yarn dev:prepare && yarn dev:server",
     "migration": "node ./scripts/migration/generate.js",
+    "migrate": "knex migrate:latest",
     "migrate:up": "knex migrate:up",
     "migrate:down": "knex migrate:down",
     "migrate:rollback": "knex migrate:rollback",
-    "migrate:list": "knex migrate:list"
+    "migrate:list": "knex migrate:list",
+    "lint": "eslint ./**/*.js --format=codeframe"
   },
   "devDependencies": {
     "dotenv": "^8.2.0"

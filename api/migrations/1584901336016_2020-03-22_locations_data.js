@@ -2,7 +2,7 @@
 
 const fs = require("fs");
 
-const countries = db =>
+const countries = (db) =>
   db.raw(
     `INSERT INTO locations (name, type, code, geom, geog, centroid)
     SELECT
@@ -16,7 +16,7 @@ const countries = db =>
     fs.readFileSync("geojson/ibge/countries.json", "utf8")
   );
 
-const states = db =>
+const states = (db) =>
   db.raw(
     `INSERT INTO locations (name, type, code, geom, geog, centroid, parent_id)
     SELECT
@@ -31,7 +31,7 @@ const states = db =>
     fs.readFileSync("geojson/ibge/states.json", "utf8")
   );
 
-const counties = db =>
+const counties = (db) =>
   db.raw(
     `INSERT INTO locations (name, type, code, geom, geog, centroid, parent_id)
     SELECT
@@ -46,13 +46,13 @@ const counties = db =>
     fs.readFileSync("geojson/ibge/counties.json", "utf8")
   );
 
-module.exports.up = async db => {
+module.exports.up = async (db) => {
   await countries(db);
   await states(db);
   await counties(db);
 };
 
-module.exports.down = async db => {
+module.exports.down = async (db) => {
   await db.raw(`
     DELETE FROM locations WHERE true
   `);

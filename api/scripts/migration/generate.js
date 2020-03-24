@@ -2,7 +2,7 @@ const fs = require("fs");
 const chalk = require("chalk");
 
 const MIGRATIONS_PATH = `migrations`;
-const TEMPLATE_PATH = `scripts/migration/generate-template.js`;
+const TEMPLATE_PATH = `scripts/migration/generate.template.js`;
 
 const DATE = new Date().toISOString().substr(0, 10);
 const TIME = new Date().getTime();
