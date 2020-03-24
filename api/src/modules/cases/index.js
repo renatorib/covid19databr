@@ -20,28 +20,26 @@ const typeDefs = gql`
   }
 `;
 
+const fields = ["id", "cases", "deaths", "recovered", "source", "location_id"];
+
+const casesByLocationIdQuery = (location_id) => {
+  return db("cases")
+    .select(fields)
+    .select(db.raw(`to_char(date, 'YYYY-MM-DD') as date`))
+    .orderBy("date", "desc")
+    .where("location_id", location_id);
+};
+
 const resolvers = {
   Query: {
     cases: async (_, args) => {
-      const data = await db("cases")
-        .select(["id", "cases", "deaths", "recovered", "source", "location_id"])
-        .select(db.raw(`to_char(date, 'YYYY-MM-DD') as date`))
-        .orderBy("date", "desc")
-        .where("location_id", args.location_id);
-
-      return data;
+      return casesByLocationIdQuery(args.location_id);
     },
   },
 
   Location: {
     cases: async (parent) => {
-      const data = await db("cases")
-        .select(["id", "cases", "deaths", "recovered", "source", "location_id"])
-        .select(db.raw(`to_char(date, 'YYYY-MM-DD') as date`))
-        .orderBy("date", "desc")
-        .where("location_id", parent.id);
-
-      return data;
+      return casesByLocationIdQuery(parent.id);
     },
   },
 };
