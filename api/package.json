@@ -18,7 +18,7 @@
     "ramda": "^0.27.0"
   },
   "scripts": {
-    "dev:prepare": "docker-compose up -d",
+    "dev:prepare": "docker-compose up -d && yarn migrate",
     "dev:server": "DOTENV_CONFIG_PATH=.env.localhost nodemon -r dotenv/config src/index.js",
     "dev": "yarn dev:prepare && yarn dev:server",
     "migration": "node ./scripts/migration/generate.js",
